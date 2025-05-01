@@ -1,0 +1,7 @@
+{
+  "name": "EventManagementUI",
+  "version": "0.0.1",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
