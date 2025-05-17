@@ -1,6 +1,6 @@
 {
-  "name": "event-management-ui",
-  "version": "0.1.0",
+  "name": "community-management-ui",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
