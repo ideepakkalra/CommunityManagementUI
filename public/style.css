@@ -43,3 +43,7 @@ header {
 #header > a:hover {
     color: #ffffff;
 }
+
+.app-main {
+    padding-top: 3.25em;
+}
