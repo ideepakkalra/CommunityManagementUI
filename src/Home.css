@@ -1,0 +1,20 @@
+#home {
+    align-items: center;
+    text-align: center;
+    background-image: url('../public/images/banner.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh !important;
+    padding: 6em 1em;
+}
+
+#home h1 {
+    font-size: 2em;
+    margin: 6em 1em 1em 1em;
+    color: rgba(255, 255, 255);
+}
+
+#home p {
+    color: rgb(255, 255, 255);
+    font-size: 1em;
+}
