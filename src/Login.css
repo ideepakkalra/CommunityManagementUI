@@ -1,0 +1,28 @@
+#login {
+    height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#login h1 {
+    font-size: 2em;
+    margin: 1em 1em 1em 1em;
+    color: rgba(255, 255, 255);
+}
+
+#login p {
+    color: rgb(255, 255, 255);
+    font-size: 1em;
+}
+
+#login-form {
+    align-items: center
+}
+
+#login-form input {
+    background-color: rgb(255, 255, 255);
+}
+
+.login-form-row {
+    margin: 2em;
+}
