@@ -7,9 +7,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import Home from './Home';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { appSlice } from './appSlice';
 
 const store = configureStore({
-  reducer: {}
+  reducer: {
+    app: appSlice.reducer
+  }
 });
 
 const router = createBrowserRouter([
