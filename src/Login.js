@@ -1,25 +1,60 @@
-import { Button, Field, Input, Text } from '@fluentui/react-components';
+import { Button, Input, MessageBar, MessageBarBody, Text } from '@fluentui/react-components';
 import './Login.css';
+import { useState } from 'react';
 
 function Login() {
+
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [passcode, setPasscode] = useState("");
+    const [message, setMessage] = useState(null);
+
     const login = async (event) => {
-        console.log(event);
-        const response = await fetch("http://localhost:8080/login", {method: "POST"});
-        console.log(response);
+        setMessage(null);
+        const response = fetch('http://localhost:8080/login', {method: 'POST', headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json;charset=UTF-8'
+            }, body: JSON.stringify({phoneNumber: "+1" + phoneNumber, passcode})}).then((response) => {
+                const data = response.json().then((data) => {
+                    console.log(data);
+                    if (response.ok) {                    
+                    //
+                    } else {
+                        setMessage(data.message);
+                    }
+                });
+            }).catch((error) => {
+                console.log(error);
+            });
     };
+
+    const onChangePhoneNumberHandler = (event, data) => {
+        if((!/\D/.test(data.value))) {
+            setPhoneNumber(data.value);
+        }
+    };
+
+    const onChangePasscodeHandler = (event, data) => {
+        if((!/\D/.test(data.value))) {
+            setPasscode(data.value);
+        }
+    };
+
     return (
         <div id='login'>
             <h1>Login</h1>
             <div id='login-form'>
+                {message && <div className='login-form-row'>
+                    <MessageBar key={"message"} intent={"error"}>
+                        <MessageBarBody>
+                            {message}
+                        </MessageBarBody>
+                    </MessageBar>
+                </div>}
                 <div className='login-form-row'>
-                    <Field>
-                        <Input id="phoneNumber" placeholder="Enter your phone number" size='large' type='tel' contentBefore={<Text id='phoneNumberPrefix'>+1</Text>} minLength={10} maxLength={10}/>
-                    </Field>
+                    <Input id='phoneNumber' type='tel' placeholder='10 digit phone number' minLength={10} maxLength={10} value={phoneNumber} onChange={onChangePhoneNumberHandler} contentBefore={<Text id='phoneNumberPrefix'>+1</Text>} />
                 </div>
                 <div className='login-form-row'>
-                    <Field>
-                        <Input id="passcode" type="password" placeholder="Enter your passcode" size='large'/>
-                    </Field>
+                    <Input id='passcode' type='password' placeholder='6 digit passcode' minLength={6} maxLength={6} value={passcode} onChange={onChangePasscodeHandler} />
                 </div>
                 <div className='login-form-row'>
                     <Button id='loginButton' onClick={login}>Login</Button>

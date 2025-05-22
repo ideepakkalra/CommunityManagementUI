@@ -1,7 +1,6 @@
 #login {
     height: 80vh;
     align-items: center;
-    justify-content: center;
 }
 
 #login h1 {
@@ -24,5 +23,5 @@
 }
 
 .login-form-row {
-    margin: 2em;
+    margin: 1em;
 }
