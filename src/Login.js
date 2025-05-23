@@ -1,28 +1,33 @@
 import { Button, Input, MessageBar, MessageBarBody, Text } from '@fluentui/react-components';
 import './Login.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setToken, setUser } from './slice';
+import { useNavigate } from 'react-router';
+import http from './http';
 
 function Login() {
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [passcode, setPasscode] = useState("");
     const [message, setMessage] = useState(null);
 
     const login = async (event) => {
         setMessage(null);
-        const response = fetch('http://localhost:8080/login', {method: 'POST', headers: {
-                'Accept': 'application/json, text/plain',
-                'Content-Type': 'application/json;charset=UTF-8'
-            }, body: JSON.stringify({phoneNumber: "+1" + phoneNumber, passcode})}).then((response) => {
-                const data = response.json().then((data) => {
-                    console.log(data);
-                    if (response.ok) {                    
-                    //
-                    } else {
-                        setMessage(data.message);
-                    }
-                });
+        http.post('login', JSON.stringify({phoneNumber: "+1" + phoneNumber, passcode}))
+            .then(async (response) => {
+                if (response.ok) { 
+                    const data = await response.json();
+                    dispatch(setToken(data.token));
+                    dispatch(setUser(structuredClone(data.user)));
+                    navigate("/home");
+
+                } else {
+                    setMessage("Login failed. [" + response.status + "]");
+                }
             }).catch((error) => {
+                setMessage("Unexpected error. [" + error + "]");
                 console.log(error);
             });
     };

@@ -3,15 +3,19 @@ import { createSlice } from "@reduxjs/toolkit"
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
+    token: null,
     user: null
   },
   reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
     setUser: (state, action) => {
       state.user = action.payload;
     }
   }
 })
 
-export const { setUser } = appSlice.actions
+export const { setToken, setUser } = appSlice.actions
 
 export default appSlice.reducer

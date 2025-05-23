@@ -4,6 +4,5 @@
     background-image: url('../public/images/banner.jpg');
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh !important;
     padding: 6em 1em;
 }
