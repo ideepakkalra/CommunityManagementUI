@@ -1,5 +1,4 @@
 import { Spinner } from '@fluentui/react-components';
-import './Login.css';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToken, setUser } from './slice';

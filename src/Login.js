@@ -16,18 +16,12 @@ function Login() {
     const login = async (event) => {
         setMessage(null);
         http.post('login', JSON.stringify({phoneNumber: "+1" + phoneNumber, passcode}))
-            .then(async (response) => {
-                if (response.ok) { 
-                    const data = await response.json();
-                    dispatch(setToken(data.token));
-                    dispatch(setUser(structuredClone(data.user)));
-                    navigate("/home");
-
-                } else {
-                    setMessage("Login failed. [" + response.status + "]");
-                }
+            .then(async (data) => {
+                dispatch(setToken(data.token));
+                dispatch(setUser(structuredClone(data.user)));
+                navigate("/home");
             }).catch((error) => {
-                setMessage("Unexpected error. [" + error + "]");
+                setMessage("Login failed. [" + error + "]");
                 console.log(error);
             });
     };
