@@ -1,0 +1,27 @@
+#register {
+    height: 80vh;
+    align-items: center;
+}
+
+#register h1 {
+    font-size: 2em;
+    margin: 1em 1em 1em 1em;
+    color: rgba(255, 255, 255);
+}
+
+#register p {
+    color: rgb(255, 255, 255);
+    font-size: 1em;
+}
+
+#register-form {
+    align-items: center;
+}
+
+#register-form input {
+    background-color: rgb(255, 255, 255);
+}
+
+.register-form-row {
+    margin: 1em;
+}

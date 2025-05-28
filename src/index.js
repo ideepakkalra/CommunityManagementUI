@@ -10,8 +10,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { appSlice } from './slice';
 import Login from './Login';
 import Logout from './Logout';
-import CommunityReferral from './CommunityReferral';
-import GroupReferral from './GroupReferral';
+import Register from './Register';
 
 const store = configureStore({
   reducer: {
@@ -26,12 +25,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "home", element: <Home /> },
-      { path: "referral", element: <Home />, 
-          children: [
-          { path: "community", element: <CommunityReferral /> },
-          { path: "group", element: <GroupReferral /> },
-        ]
-      },
+      { path: "register", element: <Register />},
       { path: "login", element: <Login /> },
       { path: "logout", element: <Logout /> },
     ],
