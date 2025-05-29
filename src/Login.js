@@ -15,7 +15,7 @@ function Login() {
 
     const login = async (event) => {
         setMessage(null);
-        http.post('login', JSON.stringify({phoneNumber: "+1" + phoneNumber, passcode}))
+        http.post('login', {phoneNumber: "+1" + phoneNumber, passcode})
             .then(async (data) => {
                 dispatch(setToken(data.token));
                 dispatch(setUser(structuredClone(data.user)));

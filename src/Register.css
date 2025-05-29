@@ -16,10 +16,9 @@
 
 #register-form {
     align-items: center;
-}
-
-#register-form input {
     background-color: rgb(255, 255, 255);
+    padding: 1em;;
+    border-radius: 1em;
 }
 
 .register-form-row {

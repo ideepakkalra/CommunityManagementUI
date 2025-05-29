@@ -8,7 +8,7 @@ const http = {
                     'Accept': 'application/json, text/plain',
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
-                body: data
+                body: JSON.stringify(data)
             })
         );
     },
@@ -28,6 +28,7 @@ const http = {
             const data = await response.json();
             return Promise.resolve(data);
         }
+        console.log(response);
         if (response.status === 400) {
             return Promise.reject(new Error('Bad Request'));
         } else if (response.status === 401) {
