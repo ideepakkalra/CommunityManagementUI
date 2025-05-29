@@ -1,12 +1,14 @@
-import { Button, Field, Input, MessageBar, MessageBarBody, Radio, RadioGroup, Spinner, Text, Textarea } from "@fluentui/react-components";
+import { Button, Input, Radio, RadioGroup, Spinner, Textarea } from "@fluentui/react-components";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router";
 import "./Register.css";
 import http from "./http";
 import { DatePicker } from "@fluentui/react-datepicker-compat";
+import { useDispatch } from "react-redux";
+import { showErrorMessage } from "./slice";
 
 function Register() {
+    // eslint-disable-next-line 
     const [maxDate, setMaxDate] = useState(() => {
         const currDate = new Date();
         currDate.setFullYear(currDate.getFullYear() - 18);
@@ -23,15 +25,18 @@ function Register() {
     const [referralId, setReferralId] = useState('');
     const [referralCode, setReferralCode] = useState('');
     const [passcode, setPasscode] = useState('');
-    const [message, setMessage] = useState(null);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // eslint-disable-next-line 
     const [searchParams, setSearchParams] = useSearchParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const register = async (event) => {
         http.post("user", { phoneNumber, email, firstName, lastName, description, gender, dateOfBirth, referredBy, passcode, referralId, referralCode })
             .then((data) => {
-                console.log(data);
+                navigate("/login");
+            })
+            .catch((error) => {
+                dispatch(showErrorMessage("Registration failed. [" + error + "]"));
             });
     };
 
@@ -77,25 +82,19 @@ function Register() {
                         setPhoneNumber(data.phoneNumber);
                         setReferredBy(data.referrer);
                     } else {
-                        setMessage("Invalid request.");
+                        dispatch(showErrorMessage("Invalid referral request."));
                     }
                 });
             } else {
-                setMessage("Invalid request.");
+                dispatch(showErrorMessage("Invalid referral request."));
             }
         }
-    }, [phoneNumber])
+        // eslint-disable-next-line 
+    }, [phoneNumber, searchParams])
 
   return (
     <div id='register'>
         <h1>Registration</h1>
-        {message && <div className='register-form-row'>
-            <MessageBar key={"message"} intent={"error"}>
-                <MessageBarBody>
-                    {message}
-                </MessageBarBody>
-            </MessageBar>
-        </div>}
         {phoneNumber == null ? <Spinner /> : <div id='register-form'>
             <div className='register-form-row'>
                     <Input id='phoneNumber' type='tel' disabled={true} placeholder='10 digit phone number' value={phoneNumber} />

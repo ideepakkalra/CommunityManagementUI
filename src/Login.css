@@ -15,11 +15,10 @@
 }
 
 #login-form {
-    align-items: center
-}
-
-#login-form input {
+    align-items: center;
     background-color: rgb(255, 255, 255);
+    padding: 1em;;
+    border-radius: 1em;
 }
 
 .login-form-row {
