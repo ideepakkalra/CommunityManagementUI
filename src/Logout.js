@@ -10,6 +10,8 @@ function Logout() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         http.post('logout', null).finally(() => {
             dispatch(setToken(null));
             dispatch(setUser(null));

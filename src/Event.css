@@ -1,0 +1,21 @@
+#event h1 {
+    font-size: 4em;
+    margin: 2em 1em;
+    color: rgba(255, 255, 255);
+}
+
+#event-upcoming {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#event-upcoming div {
+    position: relative;
+    overflow: hidden;
+    width: 48%;
+    background: rgba(255, 255, 255, 0.075);
+    border-radius: 4px;
+    margin: 0 0 2em 0;
+}

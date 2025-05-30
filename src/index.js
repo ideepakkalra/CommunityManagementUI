@@ -11,6 +11,7 @@ import { appSlice } from './slice';
 import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
+import Event from './Event';
 
 const store = configureStore({
   reducer: {
@@ -25,9 +26,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "home", element: <Home /> },
-      { path: "register", element: <Register />},
+      { path: "event", element: <Event /> },
       { path: "login", element: <Login /> },
       { path: "logout", element: <Logout /> },
+      { path: "register", element: <Register />},
     ],
   },
 ]);
