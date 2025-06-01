@@ -9,11 +9,11 @@ export const appSlice = createSlice({
   },
   reducers: {
     setToken: (state, action) => {
-      localStorage.setItem("token", action.payload);
+      action.payload && localStorage.setItem("token", action.payload);
       state.token = action.payload;
     },
     setUser: (state, action) => {
-      localStorage.setItem("user", JSON.stringify(action.payload));
+      action.payload && localStorage.setItem("user", JSON.stringify(action.payload));
       state.user = action.payload;
     },
     showErrorMessage: (state, action) => {

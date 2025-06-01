@@ -1,7 +1,7 @@
 
-const http = {
+const API = {
     post: async (url, data) => {
-        return http.handleResponse(
+        return API.handleResponse(
             await fetch('http://localhost:8080/' + url, {
                 method: 'POST',
                 headers: {
@@ -13,7 +13,7 @@ const http = {
         );
     },
     get: async (url) => {
-        return http.handleResponse(
+        return API.handleResponse(
             await fetch('http://localhost:8080/' + url, { 
                 method: 'GET', 
                 headers: {
@@ -46,4 +46,4 @@ const http = {
     }
 };
 
-export default http;
+export default API;

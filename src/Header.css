@@ -1,7 +1,7 @@
 header {
     background: rgba(4, 22, 37, 0.75);
     cursor: default;
-    height: 3.25em;
+    height: 4em;
     left: 0;
     line-height: 3.25em;
     position: fixed;
@@ -14,13 +14,13 @@ header {
     color: #ffffff;
     display: inline-block;
     height: inherit;
-    left: 1.25em;
+    left: 1em;
     line-height: inherit;
     margin: 0;
     padding: 0;
     position: absolute;
     top: 0;
-    font-size: 1.25em;
+    font-size: 2em;
 }
 
 #header > a {
@@ -36,4 +36,10 @@ header {
 
 #header > a:hover {
     color: #ffffff;
+}
+
+#header > div {
+    position: absolute;
+    right: 1em;
+    top: 0px;
 }

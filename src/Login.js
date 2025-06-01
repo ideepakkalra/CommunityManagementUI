@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToken, setUser, showErrorMessage, showSuccessMessage, showWarnMessage } from './slice';
 import { useNavigate } from 'react-router';
-import http from './http';
+import API from './API';
 
 function Login() {
     const dispatch = useDispatch();
@@ -12,8 +12,8 @@ function Login() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [passcode, setPasscode] = useState("");
 
-    const login = async (event) => {
-        http.post('login', {phoneNumber: "+1" + phoneNumber, passcode})
+    const onClickLoginHandler = async (event) => {
+        API.post('login', {phoneNumber: "+1" + phoneNumber, passcode})
             .then(async (data) => {
                 if (data.user.state === "ACTIVE") {
                     dispatch(setToken(data.token));
@@ -53,7 +53,7 @@ function Login() {
                     <Input id='passcode' type='password' placeholder='6 digit passcode' minLength={6} maxLength={6} value={passcode} onChange={onChangePasscodeHandler} style={{width: "100%"}} />
                 </div>
                 <div className='login-form-row'>
-                    <Button id='loginButton' onClick={login}>Login</Button>
+                    <Button id='loginButton' onClick={onClickLoginHandler}>Login</Button>
                 </div>
             </div>
         </div>

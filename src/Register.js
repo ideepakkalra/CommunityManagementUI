@@ -2,7 +2,7 @@ import { Button, Input, Radio, RadioGroup, Spinner, Textarea } from "@fluentui/r
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import "./Register.css";
-import http from "./http";
+import API from "./API";
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { useDispatch } from "react-redux";
 import { showErrorMessage } from "./slice";
@@ -31,7 +31,7 @@ function Register() {
     const navigate = useNavigate();
 
     const register = async (event) => {
-        http.post("user", { phoneNumber, email, firstName, lastName, description, gender, dateOfBirth, referredBy, passcode, referralId, referralCode })
+        API.post("user", { phoneNumber, email, firstName, lastName, description, gender, dateOfBirth, referredBy, passcode, referralId, referralCode })
             .then((data) => {
                 navigate("/login");
             })
@@ -75,7 +75,7 @@ function Register() {
             const ri = searchParams.get("ri");
             const rc = searchParams.get("rc");
             if (ri && rc) {
-                http.get("referral/" + ri + "/" + rc).then((data) => {
+                API.get("referral/" + ri + "/" + rc).then((data) => {
                     if (data.state === "OPEN") {
                         setReferralId(ri);
                         setReferralCode(rc);

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToken, setUser } from './slice';
 import { useNavigate } from 'react-router';
-import http from './http';
+import API from './API';
 
 function Logout() {
     const dispatch = useDispatch();
@@ -12,7 +12,7 @@ function Logout() {
     useEffect(() => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        http.post('logout', null).finally(() => {
+        API.post('logout', null).finally(() => {
             dispatch(setToken(null));
             dispatch(setUser(null));
             navigate('/home');

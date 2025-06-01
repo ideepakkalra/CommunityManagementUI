@@ -12,6 +12,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
 import Event from './Event';
+import Referral from './Referral';
 
 const store = configureStore({
   reducer: {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "logout", element: <Logout /> },
       { path: "register", element: <Register />},
+      { path: "referral", element: <Referral />},
     ],
   },
 ]);

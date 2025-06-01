@@ -1,0 +1,33 @@
+#referral h1 {
+    font-size: 3em;
+    margin: 2em 1em;
+    color: rgba(255, 255, 255);
+}
+
+#referral-form {
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    padding: 1em;;
+    border-radius: 1em;
+}
+
+.referral-form-row {
+    margin: 1em;
+}
+
+#referral-list {
+    margin-top: 2em;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    padding: 1em;;
+    border-radius: 1em;
+}
+
+#referral-list h3 {
+    font-size: 1.5em;
+    margin: 0.5em;
+}
+
+.referral-list-skeleton {
+    margin: 0.5em 0em;
+}
