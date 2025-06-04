@@ -6,7 +6,8 @@ const API = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json, text/plain',
-                    'Content-Type': 'application/json;charset=UTF-8'
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem("token"),
                 },
                 body: JSON.stringify(data)
             })
@@ -18,7 +19,8 @@ const API = {
                 method: 'GET', 
                 headers: {
                     'Accept': 'application/json, text/plain',
-                    'Content-Type': 'application/json;charset=UTF-8'
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem("token"),
                 }
             })
         );

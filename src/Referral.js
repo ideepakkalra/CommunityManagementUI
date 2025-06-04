@@ -1,8 +1,9 @@
-import { Button, Checkbox, Input, Skeleton, SkeletonItem, Text } from "@fluentui/react-components";
+import { Button, Checkbox, Input, Skeleton, SkeletonItem, Table, TableBody, TableCell, TableCellLayout, TableHeader, TableHeaderCell, TableRow, Text } from "@fluentui/react-components";
 import "./Referral.css";
 import { useEffect, useState } from "react";
 import API from "./API";
 import { useSelector } from "react-redux";
+import { CheckmarkStarburstFilled, PhoneRegular } from "@fluentui/react-icons";
 //<GuestAddRegular />
 //<GuardianFilled />
 //<PeopleCommunityAddFilled />
@@ -17,6 +18,7 @@ function Referral() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [vouched, setVouched] = useState(false);
     const [myReferrals, setMyReferrals] = useState(null);
+    const REGISTER_LINK_PREFIX = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
 
     const onChangePhoneNumberHandler = (event, data) => {
         if((!/\D/.test(data.value))) {
@@ -30,6 +32,13 @@ function Referral() {
 
     const onClickReferFriendHandler = async (event) => {
         console.log(event);
+        API.post("referral", { "phoneNumber" : "+1" + phoneNumber, state: "OPEN" })
+            .then((data) => {
+                setMyReferrals([...myReferrals, data ]);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     useEffect(() => {
@@ -71,6 +80,36 @@ function Referral() {
                 myReferrals && 
                 <div>
                     <h3>Referral's List</h3>
+                    <Table size="small">
+                        <TableHeader>
+                            <TableRow>
+                                <TableHeaderCell key="phoneNumber">Phone Number</TableHeaderCell>
+                                <TableHeaderCell key="state">State</TableHeaderCell>
+                                <TableHeaderCell key="url">Registration Link</TableHeaderCell>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {myReferrals.map((item) => (
+                                <TableRow key={item.id}>
+                                    <TableCell>
+                                        <TableCellLayout media={<PhoneRegular />}>
+                                            {item.phoneNumber}
+                                        </TableCellLayout>
+                                    </TableCell>
+                                    <TableCell>
+                                        <TableCellLayout media={<CheckmarkStarburstFilled />}>
+                                            {item.state}
+                                        </TableCellLayout>
+                                    </TableCell>
+                                    <TableCell>
+                                        <TableCellLayout>
+                                            {REGISTER_LINK_PREFIX + "/register?ri=" + item.id + "&rc=" + item.code}
+                                        </TableCellLayout>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </div>
             }
             </div>

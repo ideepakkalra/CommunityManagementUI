@@ -3,17 +3,17 @@ import { createSlice } from "@reduxjs/toolkit"
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    token: localStorage.getItem("token"),
-    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+    token: sessionStorage.getItem("token"),
+    user: sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : null,
     message: null
   },
   reducers: {
     setToken: (state, action) => {
-      action.payload && localStorage.setItem("token", action.payload);
+      action.payload && sessionStorage.setItem("token", action.payload);
       state.token = action.payload;
     },
     setUser: (state, action) => {
-      action.payload && localStorage.setItem("user", JSON.stringify(action.payload));
+      action.payload && sessionStorage.setItem("user", JSON.stringify(action.payload));
       state.user = action.payload;
     },
     showErrorMessage: (state, action) => {
