@@ -7,7 +7,7 @@ const API = {
                 headers: {
                     'Accept': 'application/json, text/plain',
                     'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization' : 'Bearer ' + sessionStorage.getItem("token"),
+                    'Authorization' : 'Bearer ' + localStorage.getItem("token"),
                 },
                 body: JSON.stringify(data)
             })
@@ -20,7 +20,7 @@ const API = {
                 headers: {
                     'Accept': 'application/json, text/plain',
                     'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization' : 'Bearer ' + sessionStorage.getItem("token"),
+                    'Authorization' : 'Bearer ' + localStorage.getItem("token"),
                 }
             })
         );

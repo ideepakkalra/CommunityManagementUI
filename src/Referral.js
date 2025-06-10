@@ -2,23 +2,16 @@ import { Button, Checkbox, Input, Skeleton, SkeletonItem, Table, TableBody, Tabl
 import "./Referral.css";
 import { useEffect, useState } from "react";
 import API from "./API";
-import { useSelector } from "react-redux";
-import { CheckmarkStarburstFilled, PhoneRegular } from "@fluentui/react-icons";
-//<GuestAddRegular />
-//<GuardianFilled />
-//<PeopleCommunityAddFilled />
-//<PeopleCommunityAddRegular />
-//<PeopleRegular />
-//<PeopleFilled />
-//<PersonAddFilled />
-//<PersonAddRegular />
+import { useDispatch, useSelector } from "react-redux";
+import { CheckmarkStarburstFilled, CheckmarkStarburstRegular, PhoneRegular, SendFilled } from "@fluentui/react-icons";
+import { showErrorMessage, showSuccessMessage } from "./slice";
 
 function Referral() {
     const user = useSelector((state) => state.app.user);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [vouched, setVouched] = useState(false);
     const [myReferrals, setMyReferrals] = useState(null);
-    const REGISTER_LINK_PREFIX = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+    const dispatch = useDispatch();
 
     const onChangePhoneNumberHandler = (event, data) => {
         if((!/\D/.test(data.value))) {
@@ -31,15 +24,29 @@ function Referral() {
     };
 
     const onClickReferFriendHandler = async (event) => {
-        console.log(event);
         API.post("referral", { "phoneNumber" : "+1" + phoneNumber, state: "OPEN" })
             .then((data) => {
+                dispatch(showSuccessMessage("Referral successful."));
                 setMyReferrals([...myReferrals, data ]);
             })
             .catch((error) => {
-                console.log(error);
+                dispatch(showErrorMessage("Referral creation failed. [" + error + "]"));
             })
     }
+
+    const reSendInviteHandler = (referralId) => {
+        API.get("referral/invite/send/" + referralId)
+        .then((data) => {
+            if (data) {
+                dispatch(showSuccessMessage("Referral invite sent successfully."));
+            } else {
+                dispatch(showErrorMessage("Referral invite not sent."));
+            }
+        })
+        .catch((error) => {
+            dispatch(showErrorMessage("Error loading your referrals. [" + error + "]"));
+        });
+    };
 
     useEffect(() => {
         API.get("referral/referrer/id/" + user.id)
@@ -49,7 +56,9 @@ function Referral() {
         })
         .catch((error) => {
             setMyReferrals([]);
+            dispatch(showErrorMessage("Error loading your referrals. [" + error + "]"));
         });
+        // eslint-disable-next-line
     }, [user]);
 
     return (
@@ -80,12 +89,12 @@ function Referral() {
                 myReferrals && 
                 <div>
                     <h3>Referral's List</h3>
-                    <Table size="small">
+                    <Table>
                         <TableHeader>
                             <TableRow>
                                 <TableHeaderCell key="phoneNumber">Phone Number</TableHeaderCell>
                                 <TableHeaderCell key="state">State</TableHeaderCell>
-                                <TableHeaderCell key="url">Registration Link</TableHeaderCell>
+                                <TableHeaderCell key="url">Registration Actions</TableHeaderCell>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -97,13 +106,13 @@ function Referral() {
                                         </TableCellLayout>
                                     </TableCell>
                                     <TableCell>
-                                        <TableCellLayout media={<CheckmarkStarburstFilled />}>
-                                            {item.state}
+                                        <TableCellLayout media={item.state === "OPEN" ? <CheckmarkStarburstRegular /> : <CheckmarkStarburstFilled />}>
+                                            {item.state === "OPEN" ? "Not Registered" : "Registered"}
                                         </TableCellLayout>
                                     </TableCell>
                                     <TableCell>
                                         <TableCellLayout>
-                                            {REGISTER_LINK_PREFIX + "/register?ri=" + item.id + "&rc=" + item.code}
+                                            <Button icon={<SendFilled />} disabled={item.state === "CLOSED"} onClick={(event) => reSendInviteHandler(item.id)}>Resend Invite</Button>
                                         </TableCellLayout>
                                     </TableCell>
                                 </TableRow>
