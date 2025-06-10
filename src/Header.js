@@ -1,13 +1,34 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import './Header.css';
+import { useSelector } from 'react-redux';
+import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger } from '@fluentui/react-components';
+import { CalendarDateFilled, HomeFilled, PeopleFilled, PersonSquareFilled, SignOutFilled } from '@fluentui/react-icons';
 
 function Header() {
+    const user = useSelector((state) => state.app.user);
+    const navigate = useNavigate();
+
     return (
         <header id='header'>
             <h1>Community App</h1>
-            <Link to={'/home'}>Home</Link>
-            <Link to={'/event'}>Event</Link>
-            <Link to={'/logout'}>Logout</Link>
+            {
+                !user ? <Link to={'/login'}>Login</Link> : 
+                    <div>
+                        <Menu hasIcons>
+                            <MenuTrigger>
+                                <Button icon={<PeopleFilled />}> {user.firstName + " " + user.lastName}</Button>
+                            </MenuTrigger>
+                            <MenuPopover>
+                                <MenuList>
+                                    <MenuItem id="home" subText="Goto Home" icon={<HomeFilled />} onClick={(e) => navigate("/home")}>Home</MenuItem>
+                                    <MenuItem subText="Your events" icon={<CalendarDateFilled />} onClick={(e) => navigate("/event")}>Events</MenuItem>
+                                    <MenuItem subText="Reffer your friend" icon={<PersonSquareFilled />} onClick={(e) => navigate("/referral")}>Referral</MenuItem>
+                                    <MenuItem subText="Click to logout" icon={<SignOutFilled />} onClick={(e) => navigate("/logout")}>Logout</MenuItem>
+                                </MenuList>
+                            </MenuPopover>
+                        </Menu>
+                    </div>
+                }
         </header>
     );
 }

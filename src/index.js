@@ -7,9 +7,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import Home from './Home';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { appSlice } from './slice';
+import Login from './Login';
+import Logout from './Logout';
+import Register from './Register';
+import Event from './Event';
+import Referral from './Referral';
 
 const store = configureStore({
-  reducer: {}
+  reducer: {
+    app: appSlice.reducer
+  }
 });
 
 const router = createBrowserRouter([
@@ -19,6 +27,11 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "home", element: <Home /> },
+      { path: "event", element: <Event /> },
+      { path: "login", element: <Login /> },
+      { path: "logout", element: <Logout /> },
+      { path: "register", element: <Register />},
+      { path: "referral", element: <Referral />},
     ],
   },
 ]);
